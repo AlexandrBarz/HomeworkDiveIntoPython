@@ -9,24 +9,30 @@
 ✔ При превышении суммы в 5 млн, вычитать налог на богатство 10% перед каждой
 операцией, даже ошибочной
 ✔ Любое действие выводит сумму денег
+Дополнительно сохраняйте все операции поступления и снятия средств в список.
 """
+
 
 def tax(summ):
     print("С вас сняли налог на богатство", summ * 0.1)
+    lst.append(f"Налог на богатство: -{summ * 0.1}. Баланс: {summ * 0.9}")
     summ -= summ * 0.1
     return summ
+
 
 def add_money(summ, count_add):
     summ_add = int(input("Сумма: "))
     if summ_add % 50 == 0:
         summ += summ_add
         count_add += 1
+        lst.append(f"Внесение средств: {summ_add}. Баланс: {summ}")
         if count_add % 3 == 0:
             summ *= 1.03
             return summ
     else:
         print("Введена некорректная сумма (не кратна 50)")
     return summ
+
 
 def withdraw_money(summ, count_out):
     summ_out = int(input("Сумма: "))
@@ -41,6 +47,7 @@ def withdraw_money(summ, count_out):
     else:
         if summ_out % 50 == 0:
             summ -= summ_out + comission
+            lst.append(f"Снятие средств: {summ_out + comission}. Баланс: {summ}")
             count_out += 1
             if count_out % 3 == 0:
                 summ *= 1.03
@@ -49,9 +56,11 @@ def withdraw_money(summ, count_out):
             print("Введена некорректная сумма")
             return summ
 
+
 summ = 0
 count_add = 0
 count_out = 0
+lst = []
 while True:
     if summ > 5_000_000:
         summ = tax(summ)
@@ -67,3 +76,5 @@ while True:
     elif action == "b":
         print(f"Ваш баланс: {summ}")
     print(f"Сумма: {summ}")
+    if action == "w":
+        print(*lst, sep="\n")
