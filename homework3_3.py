@@ -19,14 +19,14 @@ text = \
 
 word_list = re.findall(r'\b\w+\b', text.lower())
 print("Количество слов в строке:", len(word_list))
-dict = {}
+dct = {}
 for word_1 in word_list:
     count = 0
     for word_2 in word_list:
         if word_1 == word_2:
             count += 1
-    dict[word_1] = count
+    dct[word_1] = count
     if count == 1:
-        del dict[word_1]
-print(f"Кол-во повторяющих слов: {len(dict)}")
-print(f"Список 10 самых частых повторений:\n{Counter(dict).most_common(10)}")
+        del dct[word_1]
+print(f"Кол-во повторяющих слов: {len(dct)}")
+print(f"Список 10 самых частых повторений:\n{Counter(dct).most_common(10)}")
